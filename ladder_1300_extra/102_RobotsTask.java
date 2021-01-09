@@ -1,12 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
-// not submitted because of wrong test case (codeforces test case error) ->  
-// input  -> 2 6
-// my output -> 3, 2
-// jury output -> 3, 4
-  
 public class Main
 {
     static class FastReader 
@@ -65,31 +59,49 @@ public class Main
             return str; 
         } 
     }
-    
-    public static void solve(int n,int m)
+    public static int solve(int n,int[] arr)
     {
-        int c=(m+1)/2;
-        for(int i=0;i<n;i++)
+        int info=0;
+        int count=0;
+        int dir=0;
+        while(info<n)
         {
-            int rem=i%m;
-            if(rem%2==0)
+            if(dir==0)
             {
-                System.out.println(c+rem/2);
+                for(int i=0;i<n;i++)
+                {
+                    if(arr[i]<=info && arr[i]!=-1)
+                    {
+                        info++;
+                        arr[i]=-1;
+                    }
+                }
             }
             else
             {
-                if(rem==m-1)
-                    System.out.println(c+(rem+1)/2);
-                else
-                    System.out.println(c-(rem+1)/2);
+                for(int i=n-1;i>=0;i--)
+                {
+                    if(arr[i]<=info && arr[i]!=-1)
+                    {
+                        info++;
+                        arr[i]=-1;
+                    }
+                }
             }
+            dir=1-dir;
+            if(info<n)
+                count++;
         }
+        return count;
     }
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
+        
         int n=sc.nextInt();
-        int m=sc.nextInt();
-        solve(n,m);
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++)
+            arr[i]=sc.nextInt();
+        System.out.println(solve(n,arr));
     }
 }
 

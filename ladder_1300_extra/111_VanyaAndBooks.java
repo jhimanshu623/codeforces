@@ -1,12 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
-// not submitted because of wrong test case (codeforces test case error) ->  
-// input  -> 2 6
-// my output -> 3, 2
-// jury output -> 3, 4
-  
 public class Main
 {
     static class FastReader 
@@ -65,31 +59,31 @@ public class Main
             return str; 
         } 
     }
-    
-    public static void solve(int n,int m)
+    public static long solve(int n)
     {
-        int c=(m+1)/2;
-        for(int i=0;i<n;i++)
+        long digits=0;
+        int temp=n;
+        while(temp>0)
         {
-            int rem=i%m;
-            if(rem%2==0)
-            {
-                System.out.println(c+rem/2);
-            }
-            else
-            {
-                if(rem==m-1)
-                    System.out.println(c+(rem+1)/2);
-                else
-                    System.out.println(c-(rem+1)/2);
-            }
+            digits++;
+            temp=temp/10;
         }
+        
+        long count=0;
+        long mult=9;
+        for(int i=1;i<digits;i++)
+        {
+            count+=(mult*i);
+            mult*=10;
+        }
+        count+=((n-(int)Math.pow(10,digits-1))+1) * digits;
+        return count;
     }
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
+        
         int n=sc.nextInt();
-        int m=sc.nextInt();
-        solve(n,m);
+        System.out.println(solve(n));
     }
 }
 

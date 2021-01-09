@@ -1,12 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
-// not submitted because of wrong test case (codeforces test case error) ->  
-// input  -> 2 6
-// my output -> 3, 2
-// jury output -> 3, 4
-  
 public class Main
 {
     static class FastReader 
@@ -65,31 +59,49 @@ public class Main
             return str; 
         } 
     }
-    
-    public static void solve(int n,int m)
+    public static int solve(HashSet<Integer>[] g)
     {
-        int c=(m+1)/2;
-        for(int i=0;i<n;i++)
+        int n=g.length;
+        int ans=0;
+        while(true)
         {
-            int rem=i%m;
-            if(rem%2==0)
+            boolean isFound=false;
+            int[] conn=new int[n];
+            for(int i=1;i<n;i++)
             {
-                System.out.println(c+rem/2);
+                if(g[i]!=null && g[i].size()==1 && conn[i]==0)
+                {
+                    isFound=true;
+                    int nbr=g[i].iterator().next();
+                    g[i].remove(nbr);
+                    g[nbr].remove(i);
+                    conn[nbr]=g[nbr].size();
+                }
             }
+            if(isFound==false)
+                break;
             else
-            {
-                if(rem==m-1)
-                    System.out.println(c+(rem+1)/2);
-                else
-                    System.out.println(c-(rem+1)/2);
-            }
+                ans++;
         }
+        return ans;
     }
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
+        
         int n=sc.nextInt();
         int m=sc.nextInt();
-        solve(n,m);
+        HashSet<Integer>[] g=new HashSet[n+1];
+        for(int i=0;i<m;i++)
+        {
+            int a=sc.nextInt();
+            int b=sc.nextInt();
+            if(g[a]==null)
+                g[a]=new HashSet<Integer>();
+            if(g[b]==null)
+                g[b]=new HashSet<Integer>();
+            g[a].add(b);
+            g[b].add(a);
+        }
+        System.out.println(solve(g));
     }
 }
-
