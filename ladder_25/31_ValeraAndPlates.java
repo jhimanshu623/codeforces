@@ -59,52 +59,38 @@ public class Main
             return str; 
         } 
     }
-    public static void solve(int n,String str){
-        int inn=0,ans=0;
+    public static void solve(int n,int b,int p,int[] arr){
+        int ans=0;
         for(int i=0;i<n;i++){
-            char ch=str.charAt(i);
-            if(ch=='I')
-                inn++;
-        }
-        for(int i=0;i<n;i++){
-            char ch=str.charAt(i);
-            if(ch=='A' && inn==0){
-                ans++;
-            }else if(ch=='I' && inn==1){
-                ans++;
+            if(arr[i]==1){
+                if(b!=0){
+                    b--;
+                }else{
+                    ans++;
+                }
+            }else if(arr[i]==2){
+                if(p!=0){
+                    p--;
+                }else if(b!=0){
+                    b--;
+                }else{
+                    ans++;
+                }
             }
         }
         System.out.println(ans);
-    }
-    public static void solve2(int n,String str){
-        int A = 0;
-        int I = 0;
-        for(int i=0;i<n;i++){
-            if(str.charAt(i)=='A'){
-                A++;
-            }else if(str.charAt(i)=='I'){
-                I++;
-            }
-        }
-        if(I==0){
-            System.out.println(A);
-        }
-        else {
-            if(I==1){
-                System.out.println(1);
-            }
-            else{
-                System.out.println(0);
-            }
-        }
     }
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
         
         int n=sc.nextInt();
-        String str=sc.next();
-        // solve(n,str);
-        solve2(n,str);
+        int b=sc.nextInt();
+        int p=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        solve(n,b,p,arr);
     }
 }
 

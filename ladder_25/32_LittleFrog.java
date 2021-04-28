@@ -59,42 +59,28 @@ public class Main
             return str; 
         } 
     }
-    public static void solve(int n,String str){
-        int inn=0,ans=0;
+    public static void solve(int n){
+        int diff=n-1;
+        int m=1;
         for(int i=0;i<n;i++){
-            char ch=str.charAt(i);
-            if(ch=='I')
-                inn++;
-        }
-        for(int i=0;i<n;i++){
-            char ch=str.charAt(i);
-            if(ch=='A' && inn==0){
-                ans++;
-            }else if(ch=='I' && inn==1){
-                ans++;
+            System.out.print(m+" ");
+            if(i%2==0){
+                m+=diff;
+            }else{
+                m-=diff;
             }
+            diff--;
         }
-        System.out.println(ans);
     }
-    public static void solve2(int n,String str){
-        int A = 0;
-        int I = 0;
+    public static void solve2(int n){
+        int l=1,r=n;
         for(int i=0;i<n;i++){
-            if(str.charAt(i)=='A'){
-                A++;
-            }else if(str.charAt(i)=='I'){
-                I++;
-            }
-        }
-        if(I==0){
-            System.out.println(A);
-        }
-        else {
-            if(I==1){
-                System.out.println(1);
-            }
-            else{
-                System.out.println(0);
+            if(i%2==0){
+                System.out.print(l+" ");
+                l++;
+            }else{
+                System.out.print(r+" ");
+                r--;
             }
         }
     }
@@ -102,9 +88,8 @@ public class Main
         FastReader sc=new FastReader(); 
         
         int n=sc.nextInt();
-        String str=sc.next();
-        // solve(n,str);
-        solve2(n,str);
+        // solve(n);
+        solve2(n);
     }
 }
 
