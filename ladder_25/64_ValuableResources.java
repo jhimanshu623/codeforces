@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Main
+public class Main
 {
     static class FastReader 
     { 
@@ -63,6 +63,20 @@ class Main
         FastReader sc=new FastReader(); 
         
         int n=sc.nextInt();
+        long ans=0;
+        int minx=Integer.MAX_VALUE, maxx=Integer.MIN_VALUE;
+        int miny=Integer.MAX_VALUE, maxy=Integer.MIN_VALUE; 
+        for(int i=0;i<n;i++){
+            int x=sc.nextInt();
+            int y=sc.nextInt();
+            minx=Math.min(minx,x);
+            maxx=Math.max(maxx,x);
+            miny=Math.min(miny,y);
+            maxy=Math.max(maxy,y);
+        }
+        ans=Math.max(maxx-minx, maxy-miny);
+        ans*=ans;
+        System.out.println(ans);
     }
 }
 

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Main
+public class Main
 {
     static class FastReader 
     { 
@@ -59,10 +59,41 @@ class Main
             return str; 
         } 
     }
+    public static void solve(int n,char[] arr){
+        int ans=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]=='L'){
+                while(i>=0){
+                    arr[i]='#';
+                    i--;
+                }
+            }else if(arr[i]=='R'){
+                int rp=i;
+                while(i<n && arr[i]!='L'){
+                    arr[i]='#';
+                    i++;
+                }
+                if(i<n){
+                    arr[i]='#';
+                    int ne=(i-rp+1);
+                    if(ne%2!=0){
+                        ans++;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(arr[i]=='.')
+                ans++;
+        }
+        System.out.println(ans);
+    }
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
         
         int n=sc.nextInt();
+        char[] arr=sc.next().toCharArray();
+        solve(n,arr);
     }
 }
 
