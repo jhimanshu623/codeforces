@@ -59,34 +59,23 @@ public class Main
             return str; 
         } 
     }
-    public static void solve(int n,int[] arr){
-        int li=arr[0];
-        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
-        for(int i=1;i<n;i++){
-            pq.add(arr[i]);
-        }
-        int ans=0;
-        while(pq.size()>0 && pq.peek()>=li){
-            int h=pq.poll();
-            ans++;
-            h--;
-            li++;
-            pq.add(h);
-        }
-        System.out.println(ans);
-    }
-
-    // check this solution -> https://codeforces.com/contest/574/submission/102152188
-    // (didn't get the above solution)
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
         
         int n=sc.nextInt();
-        int[] arr=new int[n];
+        HashMap<String,Integer> fmap=new HashMap<>();
         for(int i=0;i<n;i++){
-            arr[i]=sc.nextInt();
+            String str=sc.next();
+            fmap.put(str, fmap.getOrDefault(str, 0)+1);
         }
-        solve(n,arr);
+        int ans=Integer.MIN_VALUE;
+        for(Integer f:fmap.values()){
+            ans=Math.max(ans,f);
+        }
+        System.out.println(ans);
     }
+    // check tutorial here -> https://codeforces.com/blog/entry/18842
+    
+
 }
 

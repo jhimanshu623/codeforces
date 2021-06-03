@@ -59,34 +59,38 @@ public class Main
             return str; 
         } 
     }
-    public static void solve(int n,int[] arr){
-        int li=arr[0];
-        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
-        for(int i=1;i<n;i++){
-            pq.add(arr[i]);
+    public static void solve(int m,int n,int[][] arr){
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0){
+                    arr[i][j]=arr[i][j];
+                }else if(i==0){
+                    arr[i][j]=arr[i][j-1]+arr[i][j];
+                }else if(j==0){
+                    arr[i][j]=arr[i-1][j]+arr[i][j];
+                }else{
+                    arr[i][j]=Math.max(arr[i-1][j],arr[i][j-1])+arr[i][j];
+                }
+                if(j==n-1){
+                    System.out.print(arr[i][j]+" ");
+                }
+            }
         }
-        int ans=0;
-        while(pq.size()>0 && pq.peek()>=li){
-            int h=pq.poll();
-            ans++;
-            h--;
-            li++;
-            pq.add(h);
-        }
-        System.out.println(ans);
+        System.out.println();
     }
-
-    // check this solution -> https://codeforces.com/contest/574/submission/102152188
-    // (didn't get the above solution)
+    // check this solution -> https://codeforces.com/contest/416/submission/105630637
     public static void main(String[] args) {
         FastReader sc=new FastReader(); 
         
+        int m=sc.nextInt();
         int n=sc.nextInt();
-        int[] arr=new int[n];
-        for(int i=0;i<n;i++){
-            arr[i]=sc.nextInt();
+        int[][] arr=new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j]=sc.nextInt();
+            }
         }
-        solve(n,arr);
+        solve(m,n,arr);
     }
 }
 
